@@ -1,47 +1,79 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { reactive } from 'vue';
+
+  const estado = reactive({
+    operacao:0,
+    numero1:0,
+    numero2:0,
+    resultado: 0,
+  })
+
+  function adi(){
+    estado.resultado = parseInt(estado.numero1) + parseInt(estado.numero2)
+  }
+
+  function sub(){
+    estado.resultado = parseInt(estado.numero1) - parseInt(estado.numero2)
+  }
+
+  function mult() { 
+    estado.resultado = parseInt(estado.numero1) * parseInt(estado.numero2)
+  }
+
+  function div() {  
+    estado.resultado = parseInt(estado.numero1) / parseInt(estado.numero2)
+  }
+
+  function pot() {  
+    estado.resultado = parseInt(estado.numero1) ** parseInt(estado.numero2)
+  }
+
+  function operacao() {  
+    switch(estado.operacao){
+      case 'adi':
+      return adi()
+      case 'sub':
+      return sub()
+      case 'mul':
+      return mult()
+      case 'div':
+      return div()
+      case 'pot':
+      return pot()
+    }
+  }
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <div class="container">
+    <div class="row d-flex">
+      <form action="" class="form d-flex w-100 justify-content-between p-5">
+        <div class="w-100 p-3">
+          <label for="" class="form-label mt-5">numero 1</label>
+          <input class="form-control" type="number" @keyup="evento => estado.numero1 = evento.target.value">
+        </div>
+        <div class="w-100 p-3">
+          <label for="" class="form-label mt-5">numero 2</label>
+          <input class="form-control" type="number" @keyup="evento =>estado.numero2 = evento.target.value">
+        </div>
+      </form>
+      <div class="w-100 justify-content-center d-flex">
+        <select @change="evento=>estado.operacao=evento.target.value" @mouseleave="operacao()">
+          <option value="sub">Subtracao</option>
+          <option value="adi">Adicao</option>
+          <option value="mul">Multiplicacao</option>
+          <option value="div">Divisao</option>
+          <option value="pot">Potenciacao</option>
+        </select>
+        {{ estado.numero1 }}
+        {{ estado.numero2 }}
+        {{  estado.operacao  }}
+      </div>
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+    {{ estado.resultado }}
+  </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>
