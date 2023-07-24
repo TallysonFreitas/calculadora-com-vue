@@ -2,7 +2,7 @@
 import { reactive } from 'vue';
 
   const estado = reactive({
-    operacao:0,
+    operacao:'sub',
     numero1:0,
     numero2:0,
     resultado: 0,
@@ -28,6 +28,14 @@ import { reactive } from 'vue';
     estado.resultado = parseInt(estado.numero1) ** parseInt(estado.numero2)
   }
 
+  function numero1() { 
+  operacao()
+  }
+
+  function numero2() { 
+  operacao()
+  }
+
   function operacao() {  
     switch(estado.operacao){
       case 'adi':
@@ -50,15 +58,15 @@ import { reactive } from 'vue';
       <form action="" class="form d-flex w-100 justify-content-between p-5">
         <div class="w-100 p-3">
           <label for="" class="form-label mt-5">numero 1</label>
-          <input class="form-control" type="number" @keyup="evento => estado.numero1 = evento.target.value">
+          <input class="form-control" type="number" @keyup="evento=>{estado.numero1 = evento.target.value, numero1()}">
         </div>
         <div class="w-100 p-3">
           <label for="" class="form-label mt-5">numero 2</label>
-          <input class="form-control" type="number" @keyup="evento =>estado.numero2 = evento.target.value">
+          <input class="form-control" type="number" @keyup="evento=>{estado.numero2 = evento.target.value, numero2()}">
         </div>
       </form>
       <div class="w-100 justify-content-center d-flex">
-        <select @change="evento=>estado.operacao=evento.target.value" @mouseleave="operacao()">
+        <select @change="evento=>estado.operacao=evento.target.value" >
           <option value="sub">Subtracao</option>
           <option value="adi">Adicao</option>
           <option value="mul">Multiplicacao</option>
